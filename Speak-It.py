@@ -10,7 +10,6 @@ import win32com.client as wincl
 import winspeech
 
 from comtypes.client import CreateObject
-from comtypes.gen import SpeechLib
 from tkinter import *
 from tkinter import PhotoImage
 from tkinter import filedialog
@@ -96,10 +95,7 @@ def is_connected():
 
 is_connected()
 
-# tt3 =threading.Event()
-# while 1:
-#     t3=threading.Thread(target=is_connected)
-#     t3.start()
+
 
 def speakITheart():
     say.config(state="disabled")
@@ -175,11 +171,13 @@ def sav():
     text=data
     engine = CreateObject("SAPI.SpVoice")
     stream = CreateObject("SAPI.SpFileStream")
+    from comtypes.gen import SpeechLib
     stream.Open(form+'.mp3', SpeechLib.SSFMCreateForWrite)
     engine.AudioOutputStream = stream
     engine.speak(text)
     stream.Close()
-
+    messagebox.showinfo("SpeakIt | Saved mp3 file","The .mp3 file have been successfully saved to Desktop")
+    
 def rest():
     data=""
     t=threading.Event()
